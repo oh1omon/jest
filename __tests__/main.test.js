@@ -109,9 +109,77 @@ describe('Books class', () => {
 			expect(BookStore.hasTopics(3)).toBe(false)
 		})
 		it('should return false if parameter id is missing false is returned', () => {
+			expect(BookStore.hasTopics()).toBe(false)
+		})
+	})
+	describe('getBookTopcis function', () => {
+		const BookStore = new Books(collection)
+		it('should return an array of book topcis of given book id', () => {
+			const result = ['data storages', 'sql', 'noSql']
+			expect(BookStore.getBookTopics(2)).toMatchObject(result)
+		})
+		it('should return empty array if there is no match', () => {
+			expect(BookStore.getBookTopics(3)).toMatchObject([])
+		})
+		it('should return exception if there is no id provided to the method', () => {
 			expect(() => {
-				BookStore.hasTopics()
-			}).toBe(false)
+				BookStore.getBookTopics()
+			}).toThrowError()
+		})
+	})
+	describe('getPriceWtihoutExtras function', () => {
+		const BookStore = new Books(collection)
+		it('should return price of book of given id', () => {
+			const result = 45
+			expect(BookStore.getPriceWithoutExtras(2)).toBe(result)
+		})
+		it('should return exception if there is no id provided to the method', () => {
+			expect(() => {
+				BookStore.getPriceWithoutExtras()
+			}).toThrowError()
+		})
+		it('should return exception if there is no book find with this id', () => {
+			expect(() => {
+				BookStore.getPriceWithoutExtras(23)
+			}).toThrowError()
+		})
+	})
+	describe('getTotalPrice function', () => {
+		const BookStore = new Books(collection)
+		it('should return price of book of given id', () => {
+			const result = 45 + 80 + 65
+			expect(BookStore.getTotalPrice(2)).toBe(result)
+		})
+		it('should return exception if there is no id provided to the method', () => {
+			expect(() => {
+				BookStore.getTotalPrice()
+			}).toThrowError()
+		})
+		it('should return exception if there is no book find with this id', () => {
+			expect(() => {
+				BookStore.getTotalPrice(23)
+			}).toThrowError()
+		})
+	})
+	describe('getPriceOfTheExtras function', () => {
+		const BookStore = new Books(collection)
+		it('should return extras of book of given id', () => {
+			const result = 80 + 65
+			expect(BookStore.getPriceOfTheExtras(2)).toBe(result)
+		})
+		it('should return 0 if no extras in the book of given id', () => {
+			const result = 0
+			expect(BookStore.getPriceOfTheExtras(3)).toBe(result)
+		})
+		it('should return exception if there is no id provided to the method', () => {
+			expect(() => {
+				BookStore.getPriceOfTheExtras()
+			}).toThrowError()
+		})
+		it('should return exception if there is no book find with this id', () => {
+			expect(() => {
+				BookStore.getPriceOfTheExtras(23)
+			}).toThrowError()
 		})
 	})
 })

@@ -23,19 +23,29 @@ class Books {
 		return this.collection.filter(item => item.author === author)
 	}
 	hasTopics(id) {
-		//TODO
+		return !(!id || !this.collection.filter(item => item.id === id)[0].topics.length > 0)
 	}
 	getBookTopics(id) {
-		//TODO
+		if (!id) throw new Error('Parameter is actuallt missing')
+		return this.collection.filter(item => item.id === id)[0].topics
 	}
 	getPriceWithoutExtras(id) {
-		//TODO
+		if (!id) throw new Error('parameter is missing')
+		const found = this.collection.filter(item => item.id === id)
+		if (found.length === 0) throw new Error(`nothing found with the given id : ${id}`)
+		return found[0].price
 	}
 	getTotalPrice(id) {
-		//TODO
+		if (!id) throw new Error('parameter is missing')
+		const found = this.collection.filter(item => item.id === id)
+		if (found.length === 0) throw new Error(`nothing found with the given id : ${id}`)
+		return found[0].price + found[0].extras.map(item => item.price).reduce((acc, curr) => acc + curr)
 	}
 	getPriceOfTheExtras(id) {
-		//TODO
+		if (!id) throw new Error('parameter is missing')
+		const found = this.collection.filter(item => item.id === id)
+		if (found.length === 0) throw new Error(`nothing found with the given id : ${id}`)
+		return found[0].extras.map(item => item.price).reduce((acc, curr) => acc + curr, 0)
 	}
 }
 
