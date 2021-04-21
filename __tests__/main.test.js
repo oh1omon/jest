@@ -67,7 +67,7 @@ describe('Books class', () => {
 			expect(BookStore.getAllIdsByName()).toMatchObject([])
 		})
 	})
-	describe('getAllIdsByName function', () => {
+	describe('getAllBookAuthors function', () => {
 		const BookStore = new Books(collection)
 		it('should return an array of book id where the books name matches the given value', () => {
 			const result = ['Layla Jones', 'Antony Lee', 'Emily White']
